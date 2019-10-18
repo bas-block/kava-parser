@@ -1,9 +1,9 @@
 {
     "MONGO": {
-        "URI": "mongodb://localhost:27017/sentinel?replicaSet=replica01"
+        "URI": "mongodb://localhost:27017/kava-testnet-3000?replicaSet=replica01"
     },
-    "RPC": "http://rpc.sentinel-turing-1.bas.network",
-    "LCD": "http://lcd.sentinel-turing-1.bas.network",
+    "RPC": "http://rpc.kava-testnet-3000.bas.network",
+    "LCD": "http://lcd.kava-testnet-3000.bas.network",
     "PARSER": {
         "DELAYS": {
             "FORWARD": ""
@@ -12,10 +12,10 @@
         "UPDATE_VALIDATOR_PIC_DELAY": "17280",
         "FORCE_BALANCE_UPDATES_EACH_BLOCKS": "17280" // ~24h
     },
-    "bech32PrefixAccAddr": "sent", // Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
-    "bech32PrefixAccPub": "sentpub", // Bech32PrefixAccPub defines the Bech32 prefix of an account's public key
-    "bech32PrefixValAddr": "sentvaloper", // Bech32PrefixValAddr defines the Bech32 prefix of a validator's operator address
-    "bech32PrefixValPub": "sentvaloperpub", // Bech32PrefixValPub defines the Bech32 prefix of a validator's operator public key
-    "bech32PrefixConsAddr": "sentvalcons", // Bech32PrefixConsAddr defines the Bech32 prefix of a consensus node address
-    "bech32PrefixConsPub": "sentvalconspub" // Bech32PrefixConsPub defines the Bech32 prefix of a consensus node public key
+    "bech32PrefixAccAddr": "kava", // Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
+    "bech32PrefixAccPub": "kavapub", // Bech32PrefixAccPub defines the Bech32 prefix of an account's public key
+    "bech32PrefixValAddr": "kavavaloper", // Bech32PrefixValAddr defines the Bech32 prefix of a validator's operator address
+    "bech32PrefixValPub": "kavavaloperpub", // Bech32PrefixValPub defines the Bech32 prefix of a validator's operator public key
+    "bech32PrefixConsAddr": "kavavalcons", // Bech32PrefixConsAddr defines the Bech32 prefix of a consensus node address
+    "bech32PrefixConsPub": "kavavalconspub" // Bech32PrefixConsPub defines the Bech32 prefix of a consensus node public key
 }
