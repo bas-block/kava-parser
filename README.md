@@ -1,6 +1,6 @@
-# Cosmos SDK Blockchain Parser
+# Kava Blockchain Parser
 
-Cosmos SDK Blockchain Parser in Node.js + MongoDB
+Kava Blockchain Parser in Node.js + MongoDB
 
 ## Features
 
