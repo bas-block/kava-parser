@@ -164,6 +164,11 @@ export class BlockchainParser {
 
           return blocks;
         })
+        .then(async (blocks: any) => {
+          await this.validatorParser.parseValidators(blocks);
+
+          return blocks;
+        })
         .then((blocks: any) => {
           return this.transactionParser.parseTransactions(
             this.flatBlocksWithMissingTransactions(blocks)

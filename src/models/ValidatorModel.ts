@@ -13,56 +13,78 @@ const validatorSchema = new Schema(
       type: String,
       index: true
     },
-    details: {
-      operatorAddress: {
+    operator_address: {
+      type: String,
+      required: true,
+      index: true
+    },
+    delegator_address: {
+      type: String,
+      index: true
+    },
+    consensus_pubkey: {
+      type: String,
+      required: true,
+      index: true
+    },
+    jailed: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    status: {
+      type: Number,
+      default: 2,
+      required: true
+    },
+    tokens: {
+      type: String
+    },
+    delegator_shares: {
+      type: String
+    },
+    description: {
+      moniker: {
         type: String,
-        required: true
+        index: true
       },
-      delegatorAddress: {
-        type: String,
-        required: true
-      },
-      consensusPubkey: {
-        type: String,
-        required: true
-      },
-      jailed: {
-        type: Boolean,
-        required: true,
-        default: false
-      },
-      status: {
+      identity: {
         type: String
       },
-      description: {
-        moniker: {
-          type: String,
-          required: true
-        },
-        identity: {
-          type: String
-        },
-        website: {
-          type: String
-        },
-        security_contact: {
-          type: String
-        },
-        details: {
-          type: String
-        }
+      website: {
+        type: String
       },
-      commission: {
+      security_contact: {
+        type: String
+      },
+      details: {
+        type: String
+      }
+    },
+    unbonding_height: {
+      type: String
+    },
+    unbonding_time: {
+      type: String
+    },
+    commission: {
+      commission_rates: {
         rate: {
           type: String
         },
-        maxRate: {
+        max_rate: {
           type: String
         },
-        maxChangeRate: {
+        max_change_rate: {
           type: String
         }
+      },
+      update_time: {
+        type: String
       }
+    },
+    min_self_delegation: {
+      type: String
     }
   },
   {
