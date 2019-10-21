@@ -11,20 +11,7 @@ const validatorSchema = new Schema(
   {
     address: {
       type: String,
-      required: true,
       index: true
-    },
-    voting_power: {
-      type: Number,
-      required: true
-    },
-    proposer_priority: {
-      type: Number,
-      required: true
-    },
-    uptime: {
-      type: Schema.Types.ObjectId,
-      ref: "Uptime"
     },
     details: {
       operatorAddress: {
@@ -45,18 +32,7 @@ const validatorSchema = new Schema(
         default: false
       },
       status: {
-        type: String,
-        required: true
-      },
-      tokens: {
-        type: String,
-        required: true
-      },
-      delegatorShares: {
         type: String
-      },
-      selfDelegated: {
-        type: Number
       },
       description: {
         moniker: {
@@ -69,7 +45,7 @@ const validatorSchema = new Schema(
         website: {
           type: String
         },
-        profile_url: {
+        security_contact: {
           type: String
         },
         details: {
@@ -84,9 +60,6 @@ const validatorSchema = new Schema(
           type: String
         },
         maxChangeRate: {
-          type: String
-        },
-        updateTime: {
           type: String
         }
       }

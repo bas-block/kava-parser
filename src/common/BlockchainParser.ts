@@ -43,6 +43,7 @@ export class BlockchainParser {
 
         if (startBlock === 0) {
           await this.accountParser.parseGenesisAccounts();
+          await this.validatorParser.parseGenesisValidators();
           winston.info("Genesis parsed successfully!");
         }
 

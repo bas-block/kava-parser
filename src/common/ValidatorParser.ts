@@ -66,6 +66,46 @@ export class ValidatorParser {
     return null;
   }
 
+  public async parseGenesisValidators() {
+    try {
+      const genesis = await Sdk.getGenesis();
+      await genesis.app_state.genutil.gentxs.map(async (validator: any) => {
+        const msg = validator.value.msg.find(
+          m => m.type === "cosmos-sdk/MsgCreateValidator"
+        );
+
+        await Validator.findOneAndUpdate(
+          { "details.consensusPubkey": msg.value.pubkey },
+          {
+            $set: {
+              "details.operatorAddress": msg.value.validator_address,
+              "details.delegatorAddress": msg.value.delegator_address,
+              "details.consensusPubkey": msg.value.pubkey,
+              "details.jailed": false,
+              "details.description.moniker": msg.value.description.moniker,
+              "details.description.identity": msg.value.description.identity,
+              "details.description.website": msg.value.description.website,
+              "details.description.security_contact":
+                msg.value.description.security_contact,
+              "details.description.details": msg.value.description.details,
+              "details.commission.rate": msg.value.commission.rate,
+              "details.commission.maxRate": msg.value.commission.max_rate,
+              "details.commission.maxChangeRate":
+                msg.value.commissionmax_change_rate
+            }
+          },
+          { upsert: true, new: true }
+        ).exec();
+      });
+
+      winston.info("Processed validators from genesis.");
+
+      return Promise.resolve();
+    } catch (error) {
+      winston.error(`Could not parse genesis validators with error: ${error}`);
+    }
+  }
+
   async parseBlock(block: any): Promise<any> {
     if (block < 1) return Promise.resolve();
 
