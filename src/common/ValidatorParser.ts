@@ -218,7 +218,7 @@ export class ValidatorParser {
         },
         update_time: validatorData.commission.update_time
       },
-      min_self_delegation: validatorData.commission.min_self_delegation
+      min_self_delegation: validatorData.min_self_delegation
     };
   }
 
