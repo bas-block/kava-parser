@@ -277,6 +277,7 @@ export class ValidatorParser {
           filter: { height: Number(block_height) },
           update: {
             $set: {
+              created_at: block.block_meta.header.time,
               active_validators: active_validators,
               total_validators: activeValidators.validators.length
             }

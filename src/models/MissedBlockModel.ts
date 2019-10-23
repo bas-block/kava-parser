@@ -19,7 +19,16 @@ const missedBlockSchema = new Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Validator"
       }
-    ]
+    ],
+    active_validators: {
+      type: Number
+    },
+    total_validators: {
+      type: Number
+    },
+    created_at: {
+      type: Date
+    }
   },
   {
     id: false,
