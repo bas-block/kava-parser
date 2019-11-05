@@ -1,12 +1,5 @@
-import * as winston from "winston";
 import { Block } from "../models/BlockModel";
 import { IBlock } from "./CommonInterfaces";
-import { Sdk } from "../services/Sdk";
-import { MissedBlock } from "../models/MissedBlockModel";
-import { Config } from "./Config";
-import * as Bluebird from "bluebird";
-
-const config = require("config");
 
 export class BlockParser {
   public async parseBlocks(blocks: any) {

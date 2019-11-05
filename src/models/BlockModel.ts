@@ -28,7 +28,8 @@ const blockSchema = new Schema(
     },
     proposer: {
       type: String,
-      required: true
+      required: true,
+      index: true
     }
   },
   {

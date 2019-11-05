@@ -51,6 +51,9 @@ const validatorSchema = new Schema(
       identity: {
         type: String
       },
+      profile_url: {
+        type: String
+      },
       website: {
         type: String
       },

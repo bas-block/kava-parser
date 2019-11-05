@@ -29,14 +29,12 @@ export class TransactionParser {
   }
 
   public async parseMessages(transaction: any) {
-    const msgs = [];
-    debugger;
+    let msgs = 0;
 
     for (const msg of transaction.msgs) {
       const doc = new Message({ ...msg, tx_hash: transaction.hash });
       await doc.save();
-
-      msgs.push(doc._id);
+      msgs++;
     }
 
     return msgs;
@@ -56,24 +54,12 @@ export class TransactionParser {
       transaction.signatures = [];
 
       for (const signature of signatures) {
-        const account = await Account.findOneAndUpdate(
-          { address: signature },
-          { $set: { address: signature } },
-          {
-            upsert: true,
-            new: true
-          }
-        );
-
-        debugger;
-
-        transaction.signatures.push(account._id);
+        transaction.signatures.push(signature);
       }
 
       const msgs = await this.parseMessages(transaction);
-      transaction.msgs = msgs;
-
-      debugger;
+      delete transaction.msgs;
+      transaction.total_msgs = msgs;
 
       bulkTransactions
         .find({ hash: transaction.hash })

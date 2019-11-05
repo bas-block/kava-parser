@@ -3,11 +3,7 @@ import * as bech32 from "bech32";
 import axios from "axios";
 import { Validator } from "../models/ValidatorModel";
 import { MissedBlock } from "../models/MissedBlockModel";
-import { Account } from "../models/AccountModel";
-import { IValidator } from "./CommonInterfaces";
 import { Sdk } from "../services/Sdk";
-import { getAddress } from "tendermint/lib/pubkey";
-import * as BluebirdPromise from "bluebird";
 import { sha256 } from "js-sha256";
 
 const config = require("config");
@@ -113,6 +109,7 @@ export class ValidatorParser {
 
   async parseBlock(block: any): Promise<any> {
     if (block < 1) return Promise.resolve();
+    if (block % 10 !== 1) return Promise.resolve();
 
     try {
       const bulkValidators = Validator.collection.initializeUnorderedBulkOp();
@@ -121,27 +118,27 @@ export class ValidatorParser {
       for (const validatorRaw of validatorSet) {
         const validator = this.extractValidatorData(validatorRaw);
 
-        // // Update validator picture
-        // if (
-        //   block % parseInt(config.get("PARSER.UPDATE_VALIDATOR_PIC_DELAY")) ===
-        //   0
-        // ) {
-        //   if (validator.details.description.identity) {
-        //     winston.info("Processing profile url validators");
+        // Update validator picture
+        if (
+          block % parseInt(config.get("PARSER.UPDATE_VALIDATOR_PIC_DELAY")) ===
+          1
+        ) {
+          if (validator.description.identity) {
+            winston.info("Processing profile url validators");
 
-        //     const profileurl = await this.getValidatorProfileUrl(
-        //       validator.details.description.identity
-        //     );
+            const profileurl = await this.getValidatorProfileUrl(
+              validator.description.identity
+            );
 
-        //     bulkValidators
-        //       .find({
-        //         "details.consensusPubkey": validator.details.consensusPubkey
-        //       })
-        //       .updateOne({
-        //         $set: { "details.description.profile_url": profileurl }
-        //       });
-        //   }
-        // }
+            bulkValidators
+              .find({
+                consensus_pubkey: validator.consensus_pubkey
+              })
+              .updateOne({
+                $set: { "description.profile_url": profileurl }
+              });
+          }
+        }
 
         bulkValidators
           .find({
@@ -240,16 +237,17 @@ export class ValidatorParser {
           p => p && p.validator_address === validator.address
         );
 
-        const validatorDb = validators.find(
-          v => v.address === validator.address
-        );
+        // Removed new version
+        // const validatorDb = validators.find(
+        //   v => v.address === validator.address
+        // );
 
         if (precommit === undefined) {
           bulkMissedBlocks.push({
             updateOne: {
               filter: { height: Number(block_height) },
               update: {
-                $push: { validators: validatorDb._id }
+                $push: { validators: validator.address }
               },
               upsert: true
             }

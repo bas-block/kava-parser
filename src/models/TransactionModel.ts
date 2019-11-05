@@ -22,16 +22,14 @@ const transactionSchema = new Schema(
     memo: {
       type: String
     },
-    msgs: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Message"
-      }
-    ],
+    total_msgs: {
+      type: Number,
+      default: 0
+    },
     signatures: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Account"
+        type: String,
+        index: true
       }
     ],
     status: {
